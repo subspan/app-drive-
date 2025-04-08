@@ -69,7 +69,7 @@ export default function ShopDetailPage() {
       setProducts(products);
 
       // Extract unique categories
-      const uniqueCategories = [...new Set(products.map(product => product.category))];
+      const uniqueCategories = Array.from(new Set(products.map(product => product.category)));
       setCategories(uniqueCategories);
     } catch (err: any) {
       console.error('Error fetching shop details:', err);
