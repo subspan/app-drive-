@@ -13,10 +13,10 @@ import { supabase } from '@/lib/supabase';
 export default function AgeVerification() {
   const [frontIdFile, setFrontIdFile] = useState<File | null>(null);
   const [backIdFile, setBackIdFile] = useState<File | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
-  const { user, isAgeVerified } = useAuth();
+  const { user, isAgeVerified, loading } = useAuth();
   const router = useRouter();
   const { toast } = useToast();
 
@@ -58,7 +58,7 @@ export default function AgeVerification() {
       return;
     }
     
-    setLoading(true);
+    setIsSubmitting(true);
     
     try {
       // Upload front ID image
@@ -126,7 +126,7 @@ export default function AgeVerification() {
     } catch (err: any) {
       setError(err.message || 'An error occurred during ID upload');
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -190,8 +190,8 @@ export default function AgeVerification() {
                   <div className="text-red-500 text-sm">{error}</div>
                 )}
                 
-                <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? 'Uploading...' : 'Submit for Verification'}
+                <Button type="submit" className="w-full" disabled={isSubmitting}>
+                  {isSubmitting ? 'Uploading...' : 'Submit for Verification'}
                 </Button>
               </form>
             </CardContent>
