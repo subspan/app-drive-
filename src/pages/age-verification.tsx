@@ -75,7 +75,7 @@ export default function AgeVerification() {
       }
 
       // Upload back ID image if provided
-      let backIdUrl = null;
+      let backIdUrl: string | null = null;
       if (backIdFile) {
         const backIdFileName = `${user.id}/id-back-${Date.now()}`;
         const { error: backUploadError, data: backData } = await supabase.storage
