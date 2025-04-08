@@ -5,8 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { useAuth } from "@/contexts/AuthContext";
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const { user, isAgeVerified } = useAuth();
+  const router = useRouter();
+  
   // Sample featured shops
   const featuredShops = [
     { id: 1, name: "Green Leaf CBD", rating: 4.8, deliveryTime: "15-25 min", image: "/images/rect.png" },
@@ -26,23 +31,35 @@ export default function Home() {
         <Header />
         <main className="flex-1 flex flex-col">
           {/* Hero Section */}
-          <section className="relative bg-gradient-to-r from-green-900 to-green-700 py-20 px-4 sm:px-6 lg:px-8">
+          <section className="relative bg-gradient-to-r from-blue-900 to-blue-700 py-20 px-4 sm:px-6 lg:px-8">
             <div className="max-w-5xl mx-auto text-center">
               <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
                 CBD & Vape Delivery <br /> Right To Your Door
               </h1>
-              <p className="text-xl text-green-100 mb-8">
+              <p className="text-xl text-blue-100 mb-8">
                 The fastest way to get your favorite products delivered from local shops
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Button size="lg" className="bg-white text-green-800 hover:bg-green-50">
-                  Order Now
-                </Button>
-                <Button size="lg" variant="outline" className="text-white border-white hover:bg-green-800">
+                {user ? (
+                  isAgeVerified ? (
+                    <Button size="lg" className="bg-white text-blue-800 hover:bg-blue-50" onClick={() => router.push('/shops')}>
+                      Order Now
+                    </Button>
+                  ) : (
+                    <Button size="lg" className="bg-white text-blue-800 hover:bg-blue-50" onClick={() => router.push('/age-verification')}>
+                      Verify Age to Order
+                    </Button>
+                  )
+                ) : (
+                  <Button size="lg" className="bg-white text-blue-800 hover:bg-blue-50" onClick={() => router.push('/signup')}>
+                    Sign Up to Order
+                  </Button>
+                )}
+                <Button size="lg" variant="outline" className="text-white border-white hover:bg-blue-800" onClick={() => router.push('/become-driver')}>
                   Become a Driver
                 </Button>
               </div>
-              <div className="mt-6 text-sm text-green-200">
+              <div className="mt-6 text-sm text-blue-200">
                 *Age verification required (21+) before ordering
               </div>
             </div>
@@ -54,9 +71,9 @@ export default function Home() {
               <h2 className="text-3xl font-bold text-center mb-12">How VapeRush Works</h2>
               
               <div className="grid md:grid-cols-3 gap-8">
-                <Card className="border-green-800/20">
+                <Card className="border-blue-800/20">
                   <CardHeader>
-                    <div className="w-12 h-12 rounded-full bg-green-100 text-green-800 flex items-center justify-center text-xl font-bold mb-4">1</div>
+                    <div className="w-12 h-12 rounded-full bg-blue-100 text-blue-800 flex items-center justify-center text-xl font-bold mb-4">1</div>
                     <CardTitle>Verify Your Age</CardTitle>
                     <CardDescription>
                       Upload your ID to verify you're 21+ and unlock ordering capabilities
@@ -64,9 +81,9 @@ export default function Home() {
                   </CardHeader>
                 </Card>
                 
-                <Card className="border-green-800/20">
+                <Card className="border-blue-800/20">
                   <CardHeader>
-                    <div className="w-12 h-12 rounded-full bg-green-100 text-green-800 flex items-center justify-center text-xl font-bold mb-4">2</div>
+                    <div className="w-12 h-12 rounded-full bg-blue-100 text-blue-800 flex items-center justify-center text-xl font-bold mb-4">2</div>
                     <CardTitle>Browse Local Shops</CardTitle>
                     <CardDescription>
                       Explore products from CBD and vape shops in your area
@@ -74,9 +91,9 @@ export default function Home() {
                   </CardHeader>
                 </Card>
                 
-                <Card className="border-green-800/20">
+                <Card className="border-blue-800/20">
                   <CardHeader>
-                    <div className="w-12 h-12 rounded-full bg-green-100 text-green-800 flex items-center justify-center text-xl font-bold mb-4">3</div>
+                    <div className="w-12 h-12 rounded-full bg-blue-100 text-blue-800 flex items-center justify-center text-xl font-bold mb-4">3</div>
                     <CardTitle>Get Fast Delivery</CardTitle>
                     <CardDescription>
                       Our drivers will deliver your order right to your door
@@ -127,22 +144,22 @@ export default function Home() {
             <div className="max-w-6xl mx-auto">
               <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div>
-                  <Badge className="mb-4 bg-green-100 text-green-800 hover:bg-green-200">Drivers</Badge>
+                  <Badge className="mb-4 bg-blue-100 text-blue-800 hover:bg-blue-200">Drivers</Badge>
                   <h2 className="text-3xl font-bold mb-4">Become a VapeRush Driver</h2>
                   <p className="text-muted-foreground mb-6">
                     Make money on your own schedule. Pick and choose which deliveries you want to take and earn competitive pay for each completed delivery.
                   </p>
                   <ul className="space-y-3 mb-8">
                     <li className="flex items-center gap-2">
-                      <span className="text-green-500">✓</span> 
+                      <span className="text-blue-500">✓</span> 
                       <span>Choose your own hours</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <span className="text-green-500">✓</span> 
+                      <span className="text-blue-500">✓</span> 
                       <span>Get paid weekly</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <span className="text-green-500">✓</span> 
+                      <span className="text-blue-500">✓</span> 
                       <span>Select which orders you want to deliver</span>
                     </li>
                   </ul>
@@ -161,7 +178,7 @@ export default function Home() {
           <section className="py-16 px-4 sm:px-6 lg:px-8 bg-muted/50">
             <div className="max-w-6xl mx-auto">
               <div className="text-center max-w-3xl mx-auto mb-12">
-                <Badge className="mb-4 bg-green-100 text-green-800 hover:bg-green-200">For Businesses</Badge>
+                <Badge className="mb-4 bg-blue-100 text-blue-800 hover:bg-blue-200">For Businesses</Badge>
                 <h2 className="text-3xl font-bold mb-4">Partner with VapeRush</h2>
                 <p className="text-muted-foreground">
                   Expand your customer base and increase sales by joining our platform. We handle the delivery so you can focus on your products.
@@ -204,14 +221,14 @@ export default function Home() {
           </section>
 
           {/* Age Verification Notice */}
-          <section className="py-12 px-4 sm:px-6 lg:px-8 bg-green-900 text-white">
+          <section className="py-12 px-4 sm:px-6 lg:px-8 bg-blue-900 text-white">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-2xl font-bold mb-4">Age Verification Required</h2>
               <p className="mb-6">
                 VapeRush is committed to responsible service. All users must verify they are 21+ years of age 
                 before placing orders. We use secure ID verification technology to ensure compliance with regulations.
               </p>
-              <Button variant="outline" className="border-white text-white hover:bg-green-800">
+              <Button variant="outline" className="border-white text-white hover:bg-blue-800">
                 Learn More About Age Verification
               </Button>
             </div>
