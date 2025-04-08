@@ -109,7 +109,7 @@ export default function Home() {
             <div className="max-w-6xl mx-auto">
               <div className="flex justify-between items-center mb-8">
                 <h2 className="text-3xl font-bold">Featured Shops</h2>
-                <Button variant="outline">View All</Button>
+                <Button variant="outline" onClick={() => router.push('/shops')}>View All</Button>
               </div>
               
               <div className="grid md:grid-cols-3 gap-6">
@@ -131,7 +131,7 @@ export default function Home() {
                       </CardDescription>
                     </CardHeader>
                     <CardFooter>
-                      <Button variant="default" className="w-full">View Shop</Button>
+                      <Button variant="default" className="w-full" onClick={() => router.push('/shops')}>View Shop</Button>
                     </CardFooter>
                   </Card>
                 ))}
