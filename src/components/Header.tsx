@@ -30,6 +30,7 @@ const Header = () => {
           <Button variant="ghost" onClick={() => router.push("/shops")}>Shops</Button>
           <Button variant="ghost" onClick={() => router.push("/search")}>Search Products</Button>
           {user && <Button variant="ghost" onClick={() => router.push("/orders")}>Orders</Button>}
+          {profile?.role === 'driver' && <Button variant="ghost" onClick={() => router.push("/driver-dashboard")}>Driver Dashboard</Button>}
           {!user && <Button variant="ghost" onClick={() => router.push("/become-driver")}>Become a Driver</Button>}
         </div>
         
@@ -50,6 +51,9 @@ const Header = () => {
                 <DropdownMenuItem onClick={() => router.push('/profile')}>Profile</DropdownMenuItem>
                 <DropdownMenuItem onClick={() => router.push('/orders')}>Orders</DropdownMenuItem>
                 <DropdownMenuItem onClick={() => router.push('/cart')}>Cart</DropdownMenuItem>
+                {profile?.role === 'driver' && (
+                  <DropdownMenuItem onClick={() => router.push('/driver-dashboard')}>Driver Dashboard</DropdownMenuItem>
+                )}
                 {!profile?.is_age_verified && (
                   <DropdownMenuItem onClick={() => router.push('/age-verification')}>Verify Age</DropdownMenuItem>
                 )}

@@ -57,7 +57,7 @@ export default function Home() {
                     placeholder="Search for CBD, vapes, and more..." 
                     className="flex-1 px-4 py-3 rounded-l-md border-0 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-900"
                   />
-                  <Button type="submit" className="rounded-l-none bg-white text-blue-800 hover:bg-blue-50">
+                  <Button type="submit" className="rounded-l-none bg-white text-blue-800 hover:bg-blue-50 h-[50px]">
                     Search
                   </Button>
                 </form>
@@ -78,8 +78,13 @@ export default function Home() {
                     Sign Up to Order
                   </Button>
                 )}
-                <Button size="lg" variant="outline" className="text-white border-white hover:bg-blue-800" onClick={() => router.push('/become-driver')}>
-                  Become a Driver
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="text-white border-white hover:bg-blue-800" 
+                  onClick={() => router.push(profile?.role === 'driver' ? '/driver-dashboard' : '/become-driver')}
+                >
+                  {profile?.role === 'driver' ? 'Driver Dashboard' : 'Become a Driver'}
                 </Button>
               </div>
               <div className="mt-6 text-sm text-blue-200">
@@ -186,7 +191,7 @@ export default function Home() {
                       <span>Select which orders you want to deliver</span>
                     </li>
                   </ul>
-                  <Button size="lg">Apply to Drive</Button>
+                  <Button size="lg" onClick={() => router.push('/become-driver')}>Apply to Drive</Button>
                 </div>
                 <div className="bg-muted h-80 rounded-lg flex items-center justify-center">
                   <div className="text-center text-muted-foreground">
@@ -274,7 +279,7 @@ export default function Home() {
                 <ul className="space-y-2 text-sm">
                   <li><a href="#" className="text-muted-foreground hover:text-foreground">Home</a></li>
                   <li><a href="#" className="text-muted-foreground hover:text-foreground">Shops</a></li>
-                  <li><a href="#" className="text-muted-foreground hover:text-foreground">Become a Driver</a></li>
+                  <li><a href="/become-driver" className="text-muted-foreground hover:text-foreground">Become a Driver</a></li>
                   <li><a href="#" className="text-muted-foreground hover:text-foreground">Partner With Us</a></li>
                 </ul>
               </div>

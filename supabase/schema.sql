@@ -99,6 +99,19 @@ CREATE TABLE IF NOT EXISTS drivers (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- Create driver applications table
+CREATE TABLE IF NOT EXISTS driver_applications (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id TEXT NOT NULL,
+  experience TEXT NOT NULL,
+  availability TEXT NOT NULL,
+  why_join TEXT NOT NULL,
+  status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
+  rejection_reason TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 -- Create storage buckets
 INSERT INTO storage.buckets (id, name, public) VALUES ('avatars', 'avatars', true);
 INSERT INTO storage.buckets (id, name, public) VALUES ('shop-images', 'shop-images', true);
@@ -181,6 +194,26 @@ CREATE POLICY "Drivers can view their own profile" ON drivers
 CREATE POLICY "Drivers can update their own profile" ON drivers
   FOR UPDATE USING (auth.uid() = id);
 
+-- Driver applications policies
+ALTER TABLE driver_applications ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can view their own applications" ON driver_applications
+  FOR SELECT USING (
+    user_id = auth.uid()::text OR 
+    user_id = 'pending' OR
+    EXISTS (
+      SELECT 1 FROM profiles
+      WHERE profiles.id = auth.uid()
+      AND profiles.role = 'admin'
+    )
+  );
+
+CREATE POLICY "Users can insert their own applications" ON driver_applications
+  FOR INSERT WITH CHECK (
+    user_id = auth.uid()::text OR 
+    user_id = 'pending'
+  );
+
 -- Create functions and triggers
 CREATE OR REPLACE FUNCTION update_updated_at()
 RETURNS TRIGGER AS $$
@@ -213,4 +246,8 @@ FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 
 CREATE TRIGGER update_drivers_updated_at
 BEFORE UPDATE ON drivers
+FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+
+CREATE TRIGGER update_driver_applications_updated_at
+BEFORE UPDATE ON driver_applications
 FOR EACH ROW EXECUTE FUNCTION update_updated_at();
