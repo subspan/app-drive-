@@ -28,6 +28,7 @@ const Header = () => {
         <div className="hidden md:flex space-x-6">
           <Button variant="ghost" onClick={() => router.push("/")}>Home</Button>
           <Button variant="ghost" onClick={() => router.push("/shops")}>Shops</Button>
+          <Button variant="ghost" onClick={() => router.push("/search")}>Search Products</Button>
           {user && <Button variant="ghost" onClick={() => router.push("/orders")}>Orders</Button>}
           {!user && <Button variant="ghost" onClick={() => router.push("/become-driver")}>Become a Driver</Button>}
         </div>

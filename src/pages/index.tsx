@@ -39,6 +39,29 @@ export default function Home() {
               <p className="text-xl text-blue-100 mb-8">
                 The fastest way to get your favorite products delivered from local shops
               </p>
+              <div className="max-w-xl w-full mx-auto mb-6">
+                <form 
+                  className="flex" 
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const input = e.currentTarget.querySelector('input');
+                    if (input && input.value) {
+                      router.push(`/search?q=${encodeURIComponent(input.value)}`);
+                    } else {
+                      router.push('/search');
+                    }
+                  }}
+                >
+                  <input 
+                    type="text" 
+                    placeholder="Search for CBD, vapes, and more..." 
+                    className="flex-1 px-4 py-3 rounded-l-md border-0 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-900"
+                  />
+                  <Button type="submit" className="rounded-l-none bg-white text-blue-800 hover:bg-blue-50">
+                    Search
+                  </Button>
+                </form>
+              </div>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 {user ? (
                   isAgeVerified ? (
