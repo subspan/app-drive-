@@ -215,11 +215,14 @@ export default function OrderConfirmationPage() {
               </div>
             </CardContent>
             <CardFooter className="flex justify-center">
-              <Button onClick={() => router.push('/shops')} className="mr-4">
+              <Button onClick={() => router.push('/shops')} className="mr-2">
                 Continue Shopping
               </Button>
-              <Button variant="outline" onClick={() => router.push('/orders')}>
+              <Button variant="outline" onClick={() => router.push('/orders')} className="mr-2">
                 View All Orders
+              </Button>
+              <Button variant="secondary" onClick={() => router.push(`/orders/${order.id}`)}>
+                Track Order
               </Button>
             </CardFooter>
           </Card>
