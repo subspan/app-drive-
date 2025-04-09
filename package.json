@@ -13,6 +13,9 @@
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
+    "coinbase-commerce-node": "^1.0.4",
+    "raw-body": "^2.5.2",
+    "uuid": "^9.0.1",
     "@supabase/auth-helpers-nextjs": "^0.8.7",
     "@supabase/auth-helpers-react": "^0.4.2",
     "@supabase/auth-ui-react": "^0.4.6",
