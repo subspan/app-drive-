@@ -82,9 +82,9 @@ export default function Home() {
                   size="lg" 
                   variant="outline" 
                   className="text-white border-white hover:bg-blue-800" 
-                  onClick={() => router.push(profile?.role === 'driver' ? '/driver-dashboard' : '/become-driver')}
+                  onClick={() => router.push(user && profile?.role === 'driver' ? '/driver-dashboard' : '/become-driver')}
                 >
-                  {profile?.role === 'driver' ? 'Driver Dashboard' : 'Become a Driver'}
+                  {user && profile?.role === 'driver' ? 'Driver Dashboard' : 'Become a Driver'}
                 </Button>
               </div>
               <div className="mt-6 text-sm text-blue-200">
