@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import Logo from './Logo';
+import CartIcon from './CartIcon';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -32,6 +33,8 @@ const Header = () => {
         </div>
         
         <div className="flex items-center space-x-4">
+          <CartIcon />
+          
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -45,6 +48,7 @@ const Header = () => {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => router.push('/profile')}>Profile</DropdownMenuItem>
                 <DropdownMenuItem onClick={() => router.push('/orders')}>Orders</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => router.push('/cart')}>Cart</DropdownMenuItem>
                 {!profile?.is_age_verified && (
                   <DropdownMenuItem onClick={() => router.push('/age-verification')}>Verify Age</DropdownMenuItem>
                 )}

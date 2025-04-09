@@ -3,6 +3,7 @@ import '../styles/globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import { useEffect, useState } from 'react';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { CartProvider } from '@/contexts/CartContext';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [mounted, setMounted] = useState(false);
@@ -27,10 +28,12 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <AuthProvider>
-      <div className="min-h-screen">
-        <Component {...pageProps} />
-        <Toaster />
-      </div>
+      <CartProvider>
+        <div className="min-h-screen">
+          <Component {...pageProps} />
+          <Toaster />
+        </div>
+      </CartProvider>
     </AuthProvider>
   )
 }

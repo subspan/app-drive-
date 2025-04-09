@@ -3,6 +3,8 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { supabase, Shop, Product } from '@/lib/supabase';
 import { useAuth } from '@/contexts/AuthContext';
+import { useCart } from '@/contexts/CartContext';
+import { useToast } from '@/components/ui/use-toast';
 import Header from '@/components/Header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
@@ -19,6 +21,8 @@ export default function ShopDetailPage() {
   const [error, setError] = useState<string | null>(null);
   
   const { user, isAgeVerified } = useAuth();
+  const { addToCart } = useCart();
+  const { toast } = useToast();
   const router = useRouter();
   const { id } = router.query;
 
@@ -174,8 +178,11 @@ export default function ShopDetailPage() {
                       )}
                     </div>
                   </div>
-                  <Button className="w-full md:w-auto">
-                    Start Order
+                  <Button 
+                    className="w-full md:w-auto"
+                    onClick={() => router.push('/cart')}
+                  >
+                    View Cart
                   </Button>
                 </div>
 
@@ -268,7 +275,19 @@ export default function ShopDetailPage() {
                                 </p>
                               </CardContent>
                               <CardFooter>
-                                <Button className="w-full">Add to Cart</Button>
+                                <Button 
+                                  className="w-full"
+                                  onClick={() => {
+                                    addToCart(product);
+                                    toast({
+                                      title: "Added to cart",
+                                      description: `${product.name} has been added to your cart.`,
+                                      duration: 3000,
+                                    });
+                                  }}
+                                >
+                                  Add to Cart
+                                </Button>
                               </CardFooter>
                             </Card>
                           ))}
