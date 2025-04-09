@@ -9,7 +9,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/router";
 
 export default function Home() {
-  const { user, isAgeVerified } = useAuth();
+  const { user, profile, isAgeVerified } = useAuth();
   const router = useRouter();
   
   // Sample featured shops
