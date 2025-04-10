@@ -86,6 +86,16 @@ export default function Home() {
                 >
                   {user && profile?.role === 'driver' ? 'Driver Dashboard' : 'Become a Driver'}
                 </Button>
+                {user && profile?.role !== 'shop_owner' && (
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="text-white border-white hover:bg-blue-800" 
+                    onClick={() => router.push(user && profile?.role === 'shop_owner' ? '/shop-dashboard' : '/register-shop')}
+                  >
+                    {user && profile?.role === 'shop_owner' ? 'Shop Dashboard' : 'Become a Shop Owner'}
+                  </Button>
+                )}
               </div>
               <div className="mt-6 text-sm text-blue-200">
                 *Age verification required (21+) before ordering
@@ -243,7 +253,7 @@ export default function Home() {
               </div>
               
               <div className="text-center mt-10">
-                <Button size="lg">Partner With Us</Button>
+                <Button size="lg" onClick={() => router.push('/register-shop')}>Partner With Us</Button>
               </div>
             </div>
           </section>
@@ -280,7 +290,7 @@ export default function Home() {
                   <li><a href="#" className="text-muted-foreground hover:text-foreground">Home</a></li>
                   <li><a href="#" className="text-muted-foreground hover:text-foreground">Shops</a></li>
                   <li><a href="/become-driver" className="text-muted-foreground hover:text-foreground">Become a Driver</a></li>
-                  <li><a href="#" className="text-muted-foreground hover:text-foreground">Partner With Us</a></li>
+                  <li><a href="/register-shop" className="text-muted-foreground hover:text-foreground">Partner With Us</a></li>
                 </ul>
               </div>
               
