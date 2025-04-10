@@ -86,7 +86,7 @@ export default function Home() {
                 >
                   {user && profile?.role === 'driver' ? 'Driver Dashboard' : 'Become a Driver'}
                 </Button>
-                {user && profile?.role !== 'shop_owner' && (
+                {user && profile?.role !== 'shop_owner' && profile?.role !== 'admin' && (
                   <Button 
                     size="lg" 
                     variant="outline" 
