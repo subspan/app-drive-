@@ -86,14 +86,14 @@ export default function Home() {
                 >
                   {user && profile?.role === 'driver' ? 'Driver Dashboard' : 'Become a Driver'}
                 </Button>
-                {user && profile?.role !== 'shop_owner' && profile?.role !== 'admin' && (
+                {user && profile && (profile.role === 'customer' || profile.role === 'driver') && (
                   <Button 
                     size="lg" 
                     variant="outline" 
                     className="text-white border-white hover:bg-blue-800" 
-                    onClick={() => router.push(user && profile?.role === 'shop_owner' ? '/shop-dashboard' : '/register-shop')}
+                    onClick={() => router.push('/register-shop')}
                   >
-                    {user && profile?.role === 'shop_owner' ? 'Shop Dashboard' : 'Become a Shop Owner'}
+                    Become a Shop Owner
                   </Button>
                 )}
               </div>
